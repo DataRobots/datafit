@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>DataDash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.css">
+      <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+      <!--<link rel="stylesheet" href="../static/style.css"> -->
+      <style type="text/css">
+        .bg-cover {
+              background-image: url('../static/ML.jpg');
+              background-repeat: repeat-x;
+        }
+      </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+
+  <!--div class="container w-100"-->
+    <div class="jumbotron jumbotron bg-cover" >
+      <div class="overlay">
+      </div>
+    </div>
+  </div>
+
+  <div>
+      <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link active" href="{{url_for('index')}}">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{{url_for('analysis')}}">Vizualizations</a>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('about')}}">About</a>
+          </li>
+        </ul>
+    </div>
+    <div class="jumbotron">
+        <h3 class="display-3">DataFit</h3>
+<p class="lead"><b>Fitting your data into favourable machine learning models</b>
+ <p>Data fit: The user can select the dataset of choice and perform supervised or unsupervised learning on the given data set.</p></p>
+
+</div>
+<div class = "container" >
+ <div class="form-group">
+    
+    <div class="col-md-8 col-md-offset-2">
+    <h3>File Input Example</h3>
+<form method="POST" action="#" enctype="multipart/form-data">
+  <!-- COMPONENT START -->
+  <div class="form-group">
+    <div class="input-group input-file" name="Fichier1">
+      <span class="input-group-btn">
+            <button class="btn btn-default btn-choose" type="file">Choose</button>
+            
+        </span>
+        <input type="text" class="form-control" placeholder='Choose a file...' />
+            </div>
+  </div>
+  <!-- COMPONENT END -->
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary pull-right" >Submit</button>
+    <button type="reset" class="btn btn-danger">Reset</button>
+  </div>
+    </div>
+  </div>
+</div>
+<div class="jumbotron">
+</div>
+<div class = "container-fluid">
+</div>
+<!-- Use below scripts if adding other plots to this page>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+    <script src="static/js/data.js"></script>
+    <script src="static/js/index.js"></script>
+    < END COMMENT -->
+<div>
+<footer>
+  <p class="text-muted ">The information
+presented here was created for educational purposes
+only.
+  </p>
+</footer>
+</div>
+</body>
+</html>
