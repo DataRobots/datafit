@@ -10,6 +10,15 @@ body {
   margin: 0;
 }
 
+/* .img-thumbnail {
+  border: 1px solid #ddd; /* Gray border */
+  border-radius: 4px;  /* Rounded border */
+  /* padding: 5px; /* Some padding */
+  /* width: 150px; Set a small width */
+  /* height: 50%;  */ */
+/* } */ */
+
+
 /* The wrapper contains all of the page's content besides the footer, which is pushed to the bottom of the page */
 .wrapper {
   position: relative;
