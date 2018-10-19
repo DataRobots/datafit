@@ -1,13 +1,22 @@
-from flask import (
-    Flask,
-    render_template,
-    jsonify,
-    request,
-    redirect)
+import os
+import io
+import numpy as np
 
-import sqlite3
+import keras
+from keras.preprocessing import image
+from keras.preprocessing.image import img_to_array
+from keras.applications.xception import (
+    Xception, preprocess_input, decode_predictions)
+from keras import backend as K
+
+from flask import Flask, request, redirect, url_for, jsonify
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'Uploads'
+
+model = None
+graph = None
+
 
 @app.route("/")
 def index():
@@ -24,155 +33,80 @@ def analysis():
     """Return the homepage."""
     return render_template("analysis.html")
 
+def load_model():
+    global model
+    global graph
+    model = Xception(weights="imagenet")
+    graph = K.get_session().graph
 
 
-@app.route('/data_scientist')
-def get_keywords():
-	
-	conn = sqlite3.connect('file:./ResumeAnalyzer.sqlite?mode=ro',uri=True)
-	cur = conn.cursor()
-	query = 'SELECT keywords, score FROM keywords_data_scientist ORDER BY score DESC LIMIT 10'
-	query_education = 'SELECT keywords, score FROM keywords_data_scientist WHERE keywords IN (\'phd\',\'masters\',\'bachelor\') ORDER BY score DESC LIMIT 10'
-	query_tool = 'SELECT keywords, score FROM keywords_data_scientist WHERE keywords IN (\'hive\',\'tableu\',\'python\',\'excel\',\'spark\',\'sql\') ORDER BY score DESC LIMIT 10'
-	results = cur.execute(query)
-	
-	keyword = []
-	score = []
-	for result in results:
-		keyword.append(result[0])
-		score.append(result[1])
+load_model()
 
-	education_results = cur.execute(query_education)
 
-	education = []
-	edu_score = []
-	for result in results:
-		education.append(result[0])
-		edu_score.append(result[1])
-	tool =[]
-	tool_score =[]
+def prepare_image(img):
+    img = img_to_array(img)
+    img = np.expand_dims(img, axis=0)
+    img = preprocess_input(img)
+    # return the processed image
+    return img
 
-	tools_results = cur.execute(query_tool)
-	for result in results:
-		tool.append(result[0])
-		tool_score.append(result[1])
 
-	plot_trace = {'plot1':{
-	 "x": keyword,
-	 "y":score,
-	 "type": "bar"
-	}, 'plot2':{
-		"x": education,
-	 "y":edu_score,
-	 "type": "bar"
-	},
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
+    data = {"success": False}
+    if request.method == 'POST':
+        if request.files.get('file'):
+            # read the file
+            file = request.files['file']
 
-	'plot3':{
-		"x": tool,
-	 "y":tool_score,
-	 "type": "bar"
-	}}
+            # read the filename
+            filename = file.filename
 
-	conn.close()
-	return jsonify(plot_trace)
-@app.route('/data_analyst')
-def get_keywords_da():
-	conn = sqlite3.connect('file:./ResumeAnalyzer.sqlite?mode=ro',uri=True)
-	cur = conn.cursor()
-	query = 'SELECT keywords, score FROM keywords_data_analyst ORDER BY score DESC LIMIT 10'
-	query_education = 'SELECT keywords, score FROM keywords_data_analyst WHERE keywords IN (\'phd\',\'masters\',\'bachelor\') ORDER BY score DESC LIMIT 10'
-	query_tool = 'SELECT keywords, score FROM keywords_data_analyst WHERE keywords IN (\'hive\',\'tableu\',\'python\',\'excel\',\'spark\',\'sql\') ORDER BY score DESC LIMIT 10'
-	results = cur.execute(query)
-	
-	keyword = []
-	score = []
-	for result in results:
-		keyword.append(result[0])
-		score.append(result[1])
+            # create a path to the uploads folder
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
-	education_results = cur.execute(query_education)
+            file.save(filepath)
 
-	education = []
-	edu_score = []
-	for result in results:
-		education.append(result[0])
-		edu_score.append(result[1])
-	tool =[]
-	tool_score =[]
+            # Load the saved image using Keras and resize it to the Xception
+            # format of 299x299 pixels
+            image_size = (299, 299)
+            im = keras.preprocessing.image.load_img(filepath,
+                                                    target_size=image_size,
+                                                    grayscale=False)
 
-	tools_results = cur.execute(query_tool)
-	for result in results:
-		tool.append(result[0])
-		tool_score.append(result[1])
+            # preprocess the image and prepare it for classification
+            image = prepare_image(im)
 
-	plot_trace = {'plot1':{
-	 "x": keyword,
-	 "y":score,
-	 "type": "bar"
-	}, 'plot2':{
-		"x": education,
-	 "y":edu_score,
-	 "type": "bar"
-	},
+            global graph
+            with graph.as_default():
+                preds = model.predict(image)
+                results = decode_predictions(preds)
+                # print the results
+                print(results)
 
-	'plot3':{
-		"x": tool,
-	 "y":tool_score,
-	 "type": "bar"
-	}}
+                data["predictions"] = []
 
-	conn.close()
-	return jsonify(plot_trace)
+                # loop over the results and add them to the list of
+                # returned predictions
+                for (imagenetID, label, prob) in results[0]:
+                    r = {"label": label, "probability": float(prob)}
+                    data["predictions"].append(r)
 
-@app.route('/data_engineer')
-def get_keywords_de():
-	
-	conn = sqlite3.connect('file:./ResumeAnalyzer.sqlite?mode=ro',uri=True)
-	cur = conn.cursor()
-	query = 'SELECT keywords, score FROM keywords_data_engineer ORDER BY score DESC LIMIT 10'
-	query_education = 'SELECT keywords, score FROM keywords_data_engineer WHERE keywords IN (\'phd\',\'masters\',\'bachelor\') ORDER BY score DESC LIMIT 10'
-	query_tool = 'SELECT keywords, score FROM keywords_data_engineer WHERE keywords IN (\'hive\',\'tableu\',\'python\',\'excel\',\'spark\',\'sql\') ORDER BY score DESC LIMIT 10'
-	results = cur.execute(query)
-	
-	keyword = []
-	score = []
-	for result in results:
-		keyword.append(result[0])
-		score.append(result[1])
+                # indicate that the request was a success
+                data["success"] = True
 
-	education_results = cur.execute(query_education)
+        return jsonify(data)
 
-	education = []
-	edu_score = []
-	for result in results:
-		education.append(result[0])
-		edu_score.append(result[1])
-	tool =[]
-	tool_score =[]
+    #return '''
+    # <!doctype html>
+    # <title>Upload new File</title>
+    # <h1>Upload new File</h1>
+    # <form method=post enctype=multipart/form-data>
+    #   <p><input type=file name=file>
+    #      <input type=submit value=Upload>
+    # </form>
+    # '''
 
-	tools_results = cur.execute(query_tool)
-	for result in results:
-		tool.append(result[0])
-		tool_score.append(result[1])
 
-	plot_trace = {'plot1':{
-	 "x": keyword,
-	 "y":score,
-	 "type": "bar"
-	}, 'plot2':{
-		"x": education,
-	 "y":edu_score,
-	 "type": "bar"
-	},
-
-	'plot3':{
-		"x": tool,
-	 "y":tool_score,
-	 "type": "bar"
-	}}
-
-	conn.close()
-	return jsonify(plot_trace)
-
-if __name__ == '__main__':
-	app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
