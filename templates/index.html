@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>DataDash</title>
+    <title>DataFit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.css">
       <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-      <!--<link rel="stylesheet" href="../static/style.css"> -->
+      <link rel="stylesheet" href="../static/style.css">
       <style type="text/css">
         .bg-cover {
               background-image: url('../static/ML.jpg');
@@ -45,34 +45,102 @@
  <p>Data fit: The user can select the dataset of choice and perform supervised or unsupervised learning on the given data set.</p></p>
 
 </div>
+
 <div class = "container" >
- <div class="form-group">
-    
+   
     <div class="col-md-8 col-md-offset-2">
-    <h3>File Input Example</h3>
-<form method="POST" action="#" enctype="multipart/form-data">
-  <!-- COMPONENT START -->
-  <div class="form-group">
-    <div class="input-group input-file" name="Fichier1">
-      <span class="input-group-btn">
-            <button class="btn btn-default btn-choose" type="file">Choose</button>
-            
-        </span>
-        <input type="text" class="form-control" placeholder='Choose a file...' />
-            </div>
-  </div>
+  
+<div class="col-md-8">
+
+    
+
+        <p>&nbsp;</p>
+        <h3 class="text-info">Please input your file</h3>
+        
+        <h1>Upload new File</h1>
+     
+            file input example 
+        <span class="control-fileupload">
+          <label for="file">Choose a file :</label>
+          <form method=post enctype=multipart/form-data>
+        
+       <p><input type= "file" id= "file">
+      <input type="submit" class="btn btn-info" value="Submit"></p>
+     </form>
+   </span>
+        </span> 
+        <!--file input example -->
+        -->
   <!-- COMPONENT END -->
-  <div class="form-group">
-    <button type="submit" class="btn btn-primary pull-right" >Submit</button>
-    <button type="reset" class="btn btn-danger">Reset</button>
-  </div>
+  <div class = "row"> </div>
+  <main>
+  <article class="dropdown-article">
+    <p>Multiselect Features dropdown.</p>
+    <div class="element-container">
+      <div class="dropdown">
+        <div class="selected_list">
+        </div>
+        <input type="text" data-value="" value="" placeholder="Select" readonly />
+        <div class="options_list">
+          <div class="option" data-value="1">
+            first
+          </div>
+          <div class="option" data-value="2">second</div>
+          <div class="option" data-value="3">third</div>
+          <div class="option" data-value="4">fourth</div>
+          <div class="option" data-value="5">fifth</div>
+          <div class="option" data-value="6">sixth</div>
+          <div class="option" data-value="7">seven</div>
+        </div>
+      </div>
     </div>
-  </div>
+  </article>
+</main>
+<div class = "container" >
+
+<div class = "row"></div>
+  
+  
+  <label class="left-col">What task do you want to perform: </label>
+   <!-- <input type="radio" name="algorithm" value="supervised">Supervised Learning</input>
+    <input type="radio" name="algorithm" value="unsupervised">Unsupervised Learning</input>-->
+
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="algorithm" id="inlineRadio1" value="supervised">
+  <label class="form-check-label" for="inlineRadio1">Supervised Learning</label>
 </div>
-<div class="jumbotron">
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="algorithm" id="inlineRadio2" value="unsupervised">
+  <label class="form-check-label" for="inlineRadio2">Unsupervised Learning</label>
 </div>
+
+
+<p>
+  <label class="left-col">Select Machine Learning Algorithm  </label>
+  <select id="category" name="category" value="">
+    <option value="">-- Select One Catagory --</option>
+    <option value="Algorithm1">Algorithm1</option>
+    <option value="Algorithm2">Algorithm2</option>
+    <option value="Algorithm3">Algorithm3</option>
+    <option value="Algorithm4">Algorithm4</option>
+    <option value="Algorithm5">Algorithm5</option>
+    <option value="Algorithm6">Algorithm6</option>
+    
+  </select>
+</p>
+</div>
+
+</div>
+   
+  
+</div>
+
+ 
+
 <div class = "container-fluid">
 </div>
+
+<script src="../static/js/app.js"></script>
 <!-- Use below scripts if adding other plots to this page>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
