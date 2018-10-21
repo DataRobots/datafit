@@ -24,130 +24,93 @@
       <div class="overlay">
       </div>
     </div>
-  </div>
-
+ 
   <div>
       <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link active" href="{{url_for('index')}}">Home</a>
+            <a class="nav-link active" href="">Home</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{{url_for('analysis')}}">Vizualizations</a>
+              <a class="nav-link" href="">Vizualizations</a>
             </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('about')}}">About</a>
+            <a class="nav-link" href="">About</a>
           </li>
         </ul>
+      
     </div>
     <div class="jumbotron">
         <h3 class="display-3">DataFit</h3>
-<p class="lead"><b>Fitting your data into favourable machine learning models</b>
- <p>Data fit: The user can select the dataset of choice and perform supervised or unsupervised learning on the given data set.</p></p>
+      <p class="lead">
+        <b>
+            Fitting your data into favourable machine learning models
+        </b>
+       <p>
+          Data fit: The user can select the dataset of choice and perform supervised or unsupervised learning on the given data set.
+       </p>
+     </p>
 
-</div>
-
-<div class = "container" >
-   
-    <div class="col-md-8 col-md-offset-2">
-  
-<div class="col-md-8">
-
-    
-
-        <p>&nbsp;</p>
-        <h3 class="text-info">Please input your file</h3>
-        
-        <h1>Upload new File</h1>
-     
-            file input example 
-        <span class="control-fileupload">
-          <label for="file">Choose a file :</label>
-          <form method=post enctype=multipart/form-data>
-        
-       <p><input type= "file" id= "file">
-      <input type="submit" class="btn btn-info" value="Submit"></p>
-     </form>
-   </span>
-        </span> 
-        <!--file input example -->
-        -->
-  <!-- COMPONENT END -->
-  <div class = "row"> </div>
-  <main>
-  <article class="dropdown-article">
-    <p>Multiselect Features dropdown.</p>
-    <div class="element-container">
-      <div class="dropdown">
-        <div class="selected_list">
-        </div>
-        <input type="text" data-value="" value="" placeholder="Select" readonly />
-        <div class="options_list">
-          <div class="option" data-value="1">
-            first
-          </div>
-          <div class="option" data-value="2">second</div>
-          <div class="option" data-value="3">third</div>
-          <div class="option" data-value="4">fourth</div>
-          <div class="option" data-value="5">fifth</div>
-          <div class="option" data-value="6">sixth</div>
-          <div class="option" data-value="7">seven</div>
-        </div>
-      </div>
     </div>
-  </article>
-</main>
+
 <div class = "container" >
+  <div class = "col-md-6">
+  <div class="form-group">
+    <form method=post enctype=multipart/form-data>
+                  <div class="input-group mb-3">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name ="file">
+                      <label class="custom-file-label" for="file">Choose file</label>
+                    </div>
+                <div class="input-group-append">
+                    <button class="btn btn-info"" type="submit" value=Upload>Upload</button>
+                </div>
 
-<div class = "row"></div>
+    </form>
   
-  
-  <label class="left-col">What task do you want to perform: </label>
-   <!-- <input type="radio" name="algorithm" value="supervised">Supervised Learning</input>
-    <input type="radio" name="algorithm" value="unsupervised">Unsupervised Learning</input>-->
+  </div>
+  </div>
 
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="algorithm" id="inlineRadio1" value="supervised">
-  <label class="form-check-label" for="inlineRadio1">Supervised Learning</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="algorithm" id="inlineRadio2" value="unsupervised">
-  <label class="form-check-label" for="inlineRadio2">Unsupervised Learning</label>
-</div>
+<form>
+  <fieldset>
 
+     <fieldset class="form-group">
+      <div class="form-group">
+      <label for="exampleSelect2">Select Features (Dependent)</label>
+      <select multiple="" class="form-control" id="exampleSelect2">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
 
-<p>
-  <label class="left-col">Select Machine Learning Algorithm  </label>
-  <select id="category" name="category" value="">
-    <option value="">-- Select One Catagory --</option>
-    <option value="Algorithm1">Algorithm1</option>
-    <option value="Algorithm2">Algorithm2</option>
-    <option value="Algorithm3">Algorithm3</option>
-    <option value="Algorithm4">Algorithm4</option>
-    <option value="Algorithm5">Algorithm5</option>
-    <option value="Algorithm6">Algorithm6</option>
-    
-  </select>
-</p>
-</div>
+    <div class="form-group">
+      <label for="exampleSelect2">Select Features (Independent)</label>
+      <select multiple="" class="form-control" id="exampleSelect2">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
 
-</div>
-   
-  
-</div>
+    <div class="form-group">
+      <label for="exampleSelect1">Select the Machine Learning Algorithm</label>
+      <select class="form-control" id="exampleSelect1">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
 
- 
-
-<div class = "container-fluid">
-</div>
-
-<script src="../static/js/app.js"></script>
-<!-- Use below scripts if adding other plots to this page>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
-    <script src="static/js/data.js"></script>
-    <script src="static/js/index.js"></script>
-    < END COMMENT -->
-<div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>
+  </div> 
 <footer>
   <p class="text-muted ">The information
 presented here was created for educational purposes
@@ -155,5 +118,6 @@ only.
   </p>
 </footer>
 </div>
+<script src="static/js/app.js"></script>
 </body>
 </html>
