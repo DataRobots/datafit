@@ -1,178 +1,178 @@
-from flask import (
-    Flask,
-    render_template,
-    jsonify,
-    request,
-    redirect)
+# Libraries
+import os
+import json
+import io
+import re
+import pandas as pd
+import numpy as np
+from flask import Flask, request, redirect, url_for, jsonify,render_template
 
-import sqlite3
+# Machine Learning Libraries
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.externals import joblib 
+from sklearn import tree
+from sklearn.ensemble import RandomForestClassifier
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
+
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'Resources'
 
-@app.route("/")
+model = None
+graph = None
+filepath = None
+
+# def load_model():
+#     global model
+#     global graph
+#     model = LinearRegression()
+#     graph = K.get_session().graph
+
+
+# load_model()
+
+@app.route("/",methods=['GET', 'POST'])
 def index():
-    """Return the homepage."""
-    return render_template("index.html")
+    global filepath
+    data = {"success": False}
 
-@app.route("/about")
-def about():
-    """Return the homepage."""
-    return render_template("about.html")
+    if request.method == 'POST':
+        if request.files.get('file'):
+            # read the file
+            file = request.files['file']
+            
+            # read the filename , create a path to the uploads folder
+            filename = file.filename
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
 
-@app.route("/analysis")
-def analysis():
-    """Return the homepage."""
-    return render_template("analysis.html")
+            # read column names from the uploaded file
+            uploaded_file = pd.read_csv(filepath, encoding="ISO-8859-1")
+            column_names = list(uploaded_file.columns.values)
+            
+            # write column names to data dictionary, indicate that the request was a success
+            data["column_names"] = column_names
+            data["success"] = True
+
+        return jsonify(data)
+
+        """Return the homepage."""
+    return render_template("index1.html")
 
 
 
-@app.route('/data_scientist')
-def get_keywords():
-	
-	conn = sqlite3.connect('file:./ResumeAnalyzer.sqlite?mode=ro',uri=True)
-	cur = conn.cursor()
-	query = 'SELECT keywords, score FROM keywords_data_scientist ORDER BY score DESC LIMIT 10'
-	query_education = 'SELECT keywords, score FROM keywords_data_scientist WHERE keywords IN (\'phd\',\'masters\',\'bachelor\') ORDER BY score DESC LIMIT 10'
-	query_tool = 'SELECT keywords, score FROM keywords_data_scientist WHERE keywords IN (\'hive\',\'tableu\',\'python\',\'excel\',\'spark\',\'sql\') ORDER BY score DESC LIMIT 10'
-	results = cur.execute(query)
-	
-	keyword = []
-	score = []
-	for result in results:
-		keyword.append(result[0])
-		score.append(result[1])
+# routes to return model evaluation metrics
 
-	education_results = cur.execute(query_education)
+@app.route("/Decision_Tree", methods=['GET','POST'])
 
-	education = []
-	edu_score = []
-	for result in results:
-		education.append(result[0])
-		edu_score.append(result[1])
-	tool =[]
-	tool_score =[]
+# def evaluate(model_name,depenedent_var):
 
-	tools_results = cur.execute(query_tool)
-	for result in results:
-		tool.append(result[0])
-		tool_score.append(result[1])
+def evaluate():
+    data = {"success": True}
 
-	plot_trace = {'plot1':{
-	 "x": keyword,
-	 "y":score,
-	 "type": "bar"
-	}, 'plot2':{
-		"x": education,
-	 "y":edu_score,
-	 "type": "bar"
-	},
+    # file processing - reading and parsing columns
+    uploaded_file = pd.read_csv(filepath, encoding="ISO-8859-1")
+    column_names = list(uploaded_file.columns.values)
+    uploaded_dummied = pd.get_dummies(uploaded_file)
 
-	'plot3':{
-		"x": tool,
-	 "y":tool_score,
-	 "type": "bar"
-	}}
+    # assign dependent and independent variables
+    target = uploaded_file["Length"]
+    target_names = ["Just Right", "Slightly Long","Slightly Short","Very Long","Very Short"]
+    dependent_var = uploaded_file.drop("Length", axis=1)
+    feature_names = dependent_var.columns
 
-	conn.close()
-	return jsonify(plot_trace)
-@app.route('/data_analyst')
-def get_keywords_da():
-	conn = sqlite3.connect('file:./ResumeAnalyzer.sqlite?mode=ro',uri=True)
-	cur = conn.cursor()
-	query = 'SELECT keywords, score FROM keywords_data_analyst ORDER BY score DESC LIMIT 10'
-	query_education = 'SELECT keywords, score FROM keywords_data_analyst WHERE keywords IN (\'phd\',\'masters\',\'bachelor\') ORDER BY score DESC LIMIT 10'
-	query_tool = 'SELECT keywords, score FROM keywords_data_analyst WHERE keywords IN (\'hive\',\'tableu\',\'python\',\'excel\',\'spark\',\'sql\') ORDER BY score DESC LIMIT 10'
-	results = cur.execute(query)
-	
-	keyword = []
-	score = []
-	for result in results:
-		keyword.append(result[0])
-		score.append(result[1])
+    # train and test split
+    X_train, X_test, y_train, y_test = train_test_split(dependent_var, target, random_state=42)
 
-	education_results = cur.execute(query_education)
+    # decision tree classifier 
 
-	education = []
-	edu_score = []
-	for result in results:
-		education.append(result[0])
-		edu_score.append(result[1])
-	tool =[]
-	tool_score =[]
+    clf = tree.DecisionTreeClassifier()
+    clf = clf.fit(X_train, y_train)
+    data["Decision Tree Score"] = clf.score(X_test, y_test)
 
-	tools_results = cur.execute(query_tool)
-	for result in results:
-		tool.append(result[0])
-		tool_score.append(result[1])
+    # Random Forest tree classifier 
+    rf = RandomForestClassifier(n_estimators=200)
+    rf = rf.fit(X_train, y_train)
+    data["Random Forest Score"] = rf.score(X_test, y_test)
 
-	plot_trace = {'plot1':{
-	 "x": keyword,
-	 "y":score,
-	 "type": "bar"
-	}, 'plot2':{
-		"x": education,
-	 "y":edu_score,
-	 "type": "bar"
-	},
+    # feature importance 
 
-	'plot3':{
-		"x": tool,
-	 "y":tool_score,
-	 "type": "bar"
-	}}
+    feature_importance = sorted(zip(rf.feature_importances_, feature_names), reverse=True)
 
-	conn.close()
-	return jsonify(plot_trace)
+    print(feature_importance)
 
-@app.route('/data_engineer')
-def get_keywords_de():
-	
-	conn = sqlite3.connect('file:./ResumeAnalyzer.sqlite?mode=ro',uri=True)
-	cur = conn.cursor()
-	query = 'SELECT keywords, score FROM keywords_data_engineer ORDER BY score DESC LIMIT 10'
-	query_education = 'SELECT keywords, score FROM keywords_data_engineer WHERE keywords IN (\'phd\',\'masters\',\'bachelor\') ORDER BY score DESC LIMIT 10'
-	query_tool = 'SELECT keywords, score FROM keywords_data_engineer WHERE keywords IN (\'hive\',\'tableu\',\'python\',\'excel\',\'spark\',\'sql\') ORDER BY score DESC LIMIT 10'
-	results = cur.execute(query)
-	
-	keyword = []
-	score = []
-	for result in results:
-		keyword.append(result[0])
-		score.append(result[1])
+    data["Feature Importance"] = feature_importance
 
-	education_results = cur.execute(query_education)
+    print(data)
 
-	education = []
-	edu_score = []
-	for result in results:
-		education.append(result[0])
-		edu_score.append(result[1])
-	tool =[]
-	tool_score =[]
+    return jsonify(data)
 
-	tools_results = cur.execute(query_tool)
-	for result in results:
-		tool.append(result[0])
-		tool_score.append(result[1])
 
-	plot_trace = {'plot1':{
-	 "x": keyword,
-	 "y":score,
-	 "type": "bar"
-	}, 'plot2':{
-		"x": education,
-	 "y":edu_score,
-	 "type": "bar"
-	},
+@app.route("/KNN", methods=['GET','POST'])
 
-	'plot3':{
-		"x": tool,
-	 "y":tool_score,
-	 "type": "bar"
-	}}
+def KNN():
+    data = {"success": True}
 
-	conn.close()
-	return jsonify(plot_trace)
+    # file processing - reading and parsing columns
+    uploaded_file = pd.read_csv(filepath, encoding="ISO-8859-1")
+    column_names = list(uploaded_file.columns.values)
+    uploaded_dummied = pd.get_dummies(uploaded_file)
 
-if __name__ == '__main__':
-	app.run()
+    print("uploaded / dummied")
+    # assign dependent and independent variables
+    target = uploaded_file["Length"]
+    target_names = ["Just Right", "Slightly Long","Slightly Short","Very Long","Very Short"]
+    dependent_var = uploaded_file.drop("Length", axis=1)
+    feature_names = dependent_var.columns
+    print("feature engineering")
+    # train and test split
+    X_train, X_test, y_train, y_test = train_test_split(dependent_var, target, random_state=42)
+
+    print("Model started")
+
+    # Loop through different k values to see which has the highest accuracy
+    # Note: We only use odd numbers because we don't want any ties
+    train_scores = []
+    test_scores = []
+    k_value = []
+
+    for k in range(1, 20, 2):
+        print(k)
+        knn = KNeighborsClassifier(n_neighbors=k)
+        
+        print("fit")
+
+        knn.fit(X_train, y_train)
+        train_score = knn.score(X_train, y_train)
+        print("train complete")
+        test_score = knn.score(X_test, y_test)
+
+        print("test complete")
+        train_scores.append(train_score)
+        test_scores.append(test_score)
+        print(f"k: {k}, Train/Test Score: {train_score:.3f}/{test_score:.3f}")
+        k_value.append(k)
+        print(k_value)
+        
+    knn_metrics = { "K" : k_value,
+                    "Train Score" :train_scores,
+                    "Test Sore": test_scores}
+
+    print("knn_metrics written")
+
+    data["KNN_Metrics"] = knn_metrics
+
+    # plot and save
+    plt.plot(range(1, 20, 2), train_scores, marker='o')
+    plt.plot(range(1, 20, 2), test_scores, marker="x")
+    plt.xlabel("k neighbors")
+    plt.ylabel("Testing accuracy Score")
+    plt.savefig('KNN.png')
+
+    return jsonify(data)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
