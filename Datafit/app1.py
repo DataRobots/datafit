@@ -101,7 +101,11 @@ def evaluate():
 
     feature_importance = sorted(zip(rf.feature_importances_, feature_names), reverse=True)
 
+    print(feature_importance)
+
     data["Feature Importance"] = feature_importance
+
+    print(data)
 
     return jsonify(data)
 
@@ -116,30 +120,48 @@ def KNN():
     column_names = list(uploaded_file.columns.values)
     uploaded_dummied = pd.get_dummies(uploaded_file)
 
+    print("uploaded / dummied")
     # assign dependent and independent variables
     target = uploaded_file["Length"]
     target_names = ["Just Right", "Slightly Long","Slightly Short","Very Long","Very Short"]
     dependent_var = uploaded_file.drop("Length", axis=1)
     feature_names = dependent_var.columns
-
+    print("feature engineering")
     # train and test split
     X_train, X_test, y_train, y_test = train_test_split(dependent_var, target, random_state=42)
+
+    print("Model started")
 
     # Loop through different k values to see which has the highest accuracy
     # Note: We only use odd numbers because we don't want any ties
     train_scores = []
     test_scores = []
     k_value = []
+
     for k in range(1, 20, 2):
+        print(k)
         knn = KNeighborsClassifier(n_neighbors=k)
+        
+        print("fit")
+
         knn.fit(X_train, y_train)
         train_score = knn.score(X_train, y_train)
+        print("train complete")
         test_score = knn.score(X_test, y_test)
+
+        print("test complete")
         train_scores.append(train_score)
         test_scores.append(test_score)
+        print(f"k: {k}, Train/Test Score: {train_score:.3f}/{test_score:.3f}")
         k_value.append(k)
+        print(k_value)
         
-    knn_metrics = zip(k_value,train_scores,test_scores)
+    knn_metrics = { "K" : k_value,
+                    "Train Score" :train_scores,
+                    "Test Sore": test_scores}
+
+    print("knn_metrics written")
+
     data["KNN_Metrics"] = knn_metrics
 
     # plot and save
@@ -148,6 +170,8 @@ def KNN():
     plt.xlabel("k neighbors")
     plt.ylabel("Testing accuracy Score")
     plt.savefig('KNN.png')
+
+    return jsonify(data)
 
 
 if __name__ == "__main__":
