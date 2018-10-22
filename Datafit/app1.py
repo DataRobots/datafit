@@ -56,10 +56,34 @@ def index():
             data["column_names"] = column_names
             data["success"] = True
 
-        return jsonify(data)
+        #return jsonify(data)
+        column_names_list.append(data)
+        print(column_names_list)
+        return render_template("index.html",result=column_names_list[0]['column_names'])
 
-        """Return the homepage."""
-    return render_template("index1.html")
+    
+@app.route("/upload",methods=['POST'])
+def upload():
+    data = {"success": False}
+    column_names_list=[]
+    if request.files.get('file'):
+                # read the file
+        file = request.files['file']
+        
+            # read the filename , create a path to the uploads folder
+        filename = file.filename
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+            # read column names from the uploaded file
+        uploaded_file = pd.read_csv(filepath, encoding="ISO-8859-1")
+        column_names = list(uploaded_file.columns.values)
+        
+            # write column names to data dictionary, indicate that the request was a success
+        data["column_names"] = column_names
+        data["success"] = True
+        column_names_list.append(data)
+        print(column_names_list)
+        return render_template("index.html",result=column_names_list[0]['column_names'])
 
 
 

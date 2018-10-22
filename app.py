@@ -18,22 +18,10 @@ model = None
 graph = None
 
 
-# def load_model():
-#     global model
-#     global graph
-#     model = LinearRegression()
-#     graph = K.get_session().graph
-
-
-# load_model()
-
-
 @app.route("/",methods=['GET', 'POST'])
 def index():
-
-    data = {"success": False}
-    column_names_list=[]
-
+    print ('Index Route')
+    
     if request.method == 'POST':
         if request.files.get('file'):
                 # read the file
@@ -43,7 +31,6 @@ def index():
             filename = file.filename
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
-            print(filepath)
                 # read column names from the uploaded file
             uploaded_file = pd.read_csv(filepath, encoding="ISO-8859-1")
             column_names = list(uploaded_file.columns.values)
@@ -51,13 +38,35 @@ def index():
                 # write column names to data dictionary, indicate that the request was a success
             data["column_names"] = column_names
             data["success"] = True
-            print(data)
             column_names_list.append(data)
             print(column_names_list)
-        return jsonify(column_names_list)
+            render_template("index.html",result=column_names_list)
 
         """Return the homepage."""
     return render_template("index.html")
+
+@app.route("/upload",methods=['POST'])
+def upload():
+    data = {"success": False}
+    column_names_list=[]
+    if request.files.get('file'):
+                # read the file
+        file = request.files['file']
+        
+            # read the filename , create a path to the uploads folder
+        filename = file.filename
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+            # read column names from the uploaded file
+        uploaded_file = pd.read_csv(filepath, encoding="ISO-8859-1")
+        column_names = list(uploaded_file.columns.values)
+        
+            # write column names to data dictionary, indicate that the request was a success
+        data["column_names"] = column_names
+        data["success"] = True
+        column_names_list.append(data)
+        print(column_names_list)
+        return render_template("index.html",result=column_names_list[0]['column_names'])
 
 # route to read columns from the uploaded file
 
