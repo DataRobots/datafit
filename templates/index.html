@@ -54,10 +54,10 @@
 <div class = "container" >
   <div class = "col-md-6">
   <div class="form-group">
-    <form method=post enctype=multipart/form-data>
+    <form method=post action='/upload' enctype=multipart/form-data>
                   <div class="input-group mb-3">
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" name ="file">
+                      <input type="file" class="custom-file-input" name ="file" id="btnfile">
                       <label class="custom-file-label" for="file">Choose file</label>
                     </div>
                 <div class="input-group-append">
@@ -74,10 +74,16 @@
 
      <fieldset class="form-group">
       <div class="form-group">
-     <!-- <label for="exampleSelect2">Select Features (Dependent)</label>
-      <select multiple="" class="form-control" id="columnheader_y">-->
-      <select class="form-control" id="columnheader_y"> <option value="empty">Select Dependent Variable
-      </option>
+     <label for="exampleSelect2">Select Features (Dependent)</label>
+     <!-- <select multiple="" class="form-control" id="columnheader_y">-->
+      <select class="form-control" id="columnheader_y" multiple>
+        {% if result %}
+           {% for item in result %}
+            <option value="empty">{{item}}</option>
+          {% endfor %}
+        {% else %}
+          <option value="empty">Wait</option>
+        {% endif %}
       </select>
       
 
@@ -85,19 +91,24 @@
 
     <div class="form-group">
       <label for="exampleSelect2">Select Features (Independent)</label>
-      <select multiple="" class="form-control" id="columnheader_x">
-        
+      <select class="form-control" id="columnheader_x">
+        {% if result %}
+           {% for item in result %}
+            <option value="empty">{{item}}</option>
+          {% endfor %}
+        {% else %}
+          <option value="empty">Wait</option>
+        {% endif %}
       </select>
     </div>
 
     <div class="form-group">
       <label for="exampleSelect1">Select the Machine Learning Algorithm</label>
       <select class="form-control" id="exampleSelect1">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <option>KNN</option>
+        <option>Decision Tree</option>
+        <option>Algorithm 3</option>
+        
       </select>
     </div>
 
