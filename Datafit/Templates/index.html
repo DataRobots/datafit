@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css">
       <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-      <link rel="stylesheet" href="../Static/style.css">
+      <!-- <link rel="stylesheet" href="../static/style.css"> -->
       <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
       <style type="text/css">
         .bg-cover {
@@ -25,6 +25,7 @@
 
         }
 
+
       </style>
         
   </head>
@@ -35,24 +36,28 @@
     <div class="overlay">
     </div>
   </div>
- 
-  <div class="navbar">
-    <ul class="nav nav-pills ">
-        <li class="nav-item">
-          <a class="nav-link active" href="{{url_for('index')}}">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{url_for('visualization')}}">Visualization</a>
-          </li>
-         <li class="nav-item">
-            <a class="nav-link" href="{{url_for('projectlc')}}">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{url_for('about')}}">The Team</a>
-          </li>
-    </ul>  
-  </div>
+  <!-- <div class="row content"> -->
+      <div class="navbar navbar-light">
+          <ul class="nav nav-pills ">
+              <li class="nav-item">
+                <a class="nav-link active" href="{{url_for('index')}}">Home</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('visualization')}}">Visualization</a>
+                </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('projectlc')}}">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('about')}}">The Team</a>
+                </li>
+          </ul>  
+        </div>
 
+        
+
+  <!-- </div> -->
+ 
   <div class="header">
     <h1>DataFit</h1>
     <p>
@@ -146,16 +151,21 @@
 
     <div>
 
-  <hr>
   <!-- <div class="container" id='data-from-server' style="background-color: white;border:2 2 2 2;color:black">
   </div> -->
   <hr>
-<footer>
+
+<!-- <footer>
+  <p></p>
+  <p></p>
+  <p></p>
+  <p></p>
+
   <p class="text-muted ">The information
 presented here was created for educational purposes
 only.
   </p>
-</footer>
+</footer> -->
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
