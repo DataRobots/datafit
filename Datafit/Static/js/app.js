@@ -47,6 +47,9 @@ submit_element.addEventListener('click',function(){
 	console.log("Inside display graph");
 	var table = document.getElementById("data-from-server")
 	table.innerHTML = " ";
+	var header1 = document.getElementById("features")
+	header1.innerHTML = " ";
+
 	document.getElementById("features1").innerHTML = "KNN Evaluation Metrics";
 
 	var img = document.createElement("img");
