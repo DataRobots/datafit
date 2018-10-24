@@ -47,7 +47,11 @@ def about():
 def visualization():
     """Return the homepage."""
     return render_template("visualization.html")
-    
+
+@app.route("/projectlc")
+def projectlc():
+    """Return the homepage."""
+    return render_template("process.html")
 
 # @app.route("/",methods=['GET', 'POST'])
 # def index():
