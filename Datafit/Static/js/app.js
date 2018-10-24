@@ -73,22 +73,25 @@ submit_element.addEventListener('click',function(){
 	  }
 
 
- 	// for (key in data){
-	// 		value = data[key];
-	// 		if (key == 'Feature Importance'){
-	// 			value.forEach((element)=>{
-	// 				value1 = element[1];
-	// 				value2 = element[0];
-	// 				html_template = `<div class="row"> <div class="col-md-6"> ${value1}</div><div class="col-md-6">${value2}</div></div>`	
-	// 				html_string += html_template
-	// 			})
-	// 		} else {
-	// 			html_template = `<div class="row"> <div class="col-md-6"> ${key}</div><div class="col-md-6">${value}</div></div>`
-	// 			html_string += html_template
-	// 		}
+ 	for (key in data){
+			value = data[key];
+			if (key == 'Feature Importance'){
+				document.getElementById("features").innerHTML = "Feature Importance";
+				value.forEach((element)=>{
+					value1 = element[1];
+					value2 = parseFloat(element[0].toFixed(2))
+					html_template = `<div class="row"> <div class="col-md-6"> ${value1}</div><div class="col-md-6">${value2}</div></div>`	
+					html_string += html_template
+				})
+			} 
 			
-	// 	}
-	// 	let v = document.getElementById('data-from-server');
-	// 	v.innerHTML = html_string;
+			// else {
+			// 	html_template = `<div class="row"> <div class="col-md-6"> ${key}</div><div class="col-md-6">${value}</div></div>`
+			// 	html_string += html_template
+			// }
+			
+		}
+		let v = document.getElementById('features1');
+		v.innerHTML = html_string;
 	
  }
