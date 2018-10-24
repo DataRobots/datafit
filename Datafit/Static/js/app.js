@@ -15,7 +15,9 @@ submit_element.addEventListener('click',function(){
 	switch (dropdown_element.value){
 		case 'KNN':
 			url = '/KNN';
+			displayknngraph();
 			break;
+
 		case 'Decision Tree':
 			url = '/Decision_Tree';
 			break;
@@ -30,7 +32,7 @@ submit_element.addEventListener('click',function(){
 		}
 
 		else{
-			renderDecisionTree(data['KNN_Metrics'])
+			renderKNN(data)
 		}
 		console.log('Data Returned',data);
 		
@@ -40,6 +42,39 @@ submit_element.addEventListener('click',function(){
 
 
 })
+
+ function displayknngraph() {
+	console.log("Inside display graph");
+	var table = document.getElementById("data-from-server")
+	table.innerHTML = " ";
+	document.getElementById("features1").innerHTML = "KNN Evaluation Metrics";
+
+	var img = document.createElement("img");
+	// img.src = '../../Resources/KNN.png';
+	img.src = 'https://github.com/DataRobots/datafit/blob/master/Datafit/Resources/KNN.png?raw=true'
+    img.width = 400;
+    img.height = 300;
+    img.alt = 'KNN Evaluation Metrics';
+
+    // This next line will just add it to the <body> tag
+    document.getElementById("features").appendChild(img);
+
+ }
+
+ function renderKNN(data){
+	console.log(data)
+
+	// for (key in data){
+	// 	value = data[key]
+	// 	value.forEach((element)=>{
+	// 		html_template = `<div class="row"> <div class="col-md-6"> ${key}</div><div class="col-md-6">${value}</div></div>`
+	// 		html_string += html_template})
+		
+	// 		let v = document.getElementById('features1');
+	// 		v.innerHTML = html_string;
+	// }
+
+ }
 
  function renderDecisionTree(data){
 	console.log(data)
@@ -86,12 +121,14 @@ submit_element.addEventListener('click',function(){
 			} 
 			
 			// else {
+			// 	document.getElementById("features").innerHTML = "KNN Evaluation Metrics";
+			// 	value.forEach((element)=>{
 			// 	html_template = `<div class="row"> <div class="col-md-6"> ${key}</div><div class="col-md-6">${value}</div></div>`
 			// 	html_string += html_template
-			// }
+			// })
 			
-		}
+			}
 		let v = document.getElementById('features1');
 		v.innerHTML = html_string;
 	
- }
+ } 
