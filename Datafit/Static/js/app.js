@@ -57,7 +57,8 @@ submit_element.addEventListener('click',function(){
 	for(var i =0; i <attr_c.length;i++){
 
 		var model_name = attr_c[i]
-		var model_score = data[model_name]
+		var model_score_1 = data[model_name]
+		var model_score = parseFloat(model_score_1.toFixed(2))
 		var model_row = [model_name,model_score]
 		data_list.push(model_row);
 		$("tbody").empty();
