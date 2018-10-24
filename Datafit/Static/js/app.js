@@ -42,23 +42,52 @@ submit_element.addEventListener('click',function(){
 })
 
  function renderDecisionTree(data){
- 	for (key in data){
-			value = data[key];
-			if (key == 'Feature Importance'){
-				value.forEach((element)=>{
-					value1 = element[1];
-					value2 = element[0];
-					html_template = `<div class="row"> <div class="col-md-6"> ${value1}</div><div class="col-md-6">${value2}</div></div>`	
-					html_string += html_template
-				})
-			} else {
-				html_template = `<div class="row"> <div class="col-md-6"> ${key}</div><div class="col-md-6">${value}</div></div>`
-				html_string += html_template
-			}
+	console.log(data)
+	console.log(data["Decision Tree Score"])
+	console.log(data["Feature Importance"])
+	console.log(data["Random Forest Score"])
+
+	var table = Plotly.d3.select("#data-from-server");
+    var tbody = table.select("tbody");
+
+	var data_list = [];
+	
+	var attr_c = ["Decision Tree Score","Random Forest Score"]
+
+	for(var i =0; i <attr_c.length;i++){
+
+		var model_name = attr_c[i]
+		var model_score = data[model_name]
+		var model_row = [model_name,model_score]
+		data_list.push(model_row);
+		$("tbody").empty();
+		var rows = tbody.selectAll('tr')
+		.data(data_list)
+		.enter()
+		.append('tr')
+		.html(function(d){
+			return `<td>${d[0]}</td><td>${d[1]}</td>`
+		})  
+
+	  }
+
+
+ 	// for (key in data){
+	// 		value = data[key];
+	// 		if (key == 'Feature Importance'){
+	// 			value.forEach((element)=>{
+	// 				value1 = element[1];
+	// 				value2 = element[0];
+	// 				html_template = `<div class="row"> <div class="col-md-6"> ${value1}</div><div class="col-md-6">${value2}</div></div>`	
+	// 				html_string += html_template
+	// 			})
+	// 		} else {
+	// 			html_template = `<div class="row"> <div class="col-md-6"> ${key}</div><div class="col-md-6">${value}</div></div>`
+	// 			html_string += html_template
+	// 		}
 			
-		}
-		let v = document.getElementById('data-from-server');
-		v.innerHTML = html_string;
-
-
+	// 	}
+	// 	let v = document.getElementById('data-from-server');
+	// 	v.innerHTML = html_string;
+	
  }
