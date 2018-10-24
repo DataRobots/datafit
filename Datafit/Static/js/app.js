@@ -9,7 +9,7 @@ $('#btnfile').on('change',function(){
 
  var submit_element = document.getElementById("submit");
  var dropdown_element = document.getElementById("Algorithm");
- 
+
 submit_element.addEventListener('click',function(){
 	
 	switch (dropdown_element.value){
