@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>DataFit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/pulse/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <style type="text/css">
       .bg-cover {
@@ -18,66 +18,62 @@
     <div class="container"></div>
   </div>
   <div>
-      <!-- <ul class="nav nav-pills">
+      <ul class="nav nav-pills">
              <li class="nav-item">
             <a class="nav-link active" href="{{url_for('index')}}">Home</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{{url_for('analysis')}}">Visualization</a>
+              <a class="nav-link" href="{{url_for('visualization')}}">Visualization</a>
             </li>
           <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
+            <a class="nav-link" href="{{url_for('about')}}">About</a>
           </li>
-        </ul> -->
-
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link active" href="">Home</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="">Vizualizations</a>
-            </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-      </ul>  
+        </ul>
     </div>
     <div class="jumbotron">
-        <h1 class="display-3">DataDash Project</h1>
-        <p class="lead">The Datadash team scraped job description data from Glassdoor.com. We stored and cleaned data in SQLite.  <br /> <br />We analyzed text for key words using natural language processing and used raw data to evaluate the requirements for 3 specific job titles. Website was built in Bootstrap 4, utilizing JQuery and AJAX for navigation controls. Visualizations were built in Plotly and Carto.
-          <br / > <br />
-        Next on our roadmap is to integrate the resume analysis tool - job seeker pastes the test of their resume on the website, and get a recommended job description.</p>
+        <h1 class="display-3">DataFit Project</h1>
+        <p class="lead">The DataFit team built tool to analyze a user given data set, perform supervised learning and display predictive models. 
+          This utility will be a handy tool in the hands of targeted user personas such as: Analyst, Strategist, Decision Makers, etc.
+
+          <br />&#128504; We analyzed e-commerce data of Industry-wide apparel orders and its specifications. Our website was built in HTML, Bootstrap 4, utilizing JS, JQuery and AJAX for navigation controls. Descriptive visualizations were built in Tableau.
+          <br />&#128504; We prioritized our modeling design to provide a working prototype of a single use case, that enables upload of custom data and displays an evaluation
+          <br />&#128504; We plan to provide many  more useful statistical models for predictive analysis - the NEXT milestone on our roadmap!
+        
+        
+        </p>
     <div>
     <div class="row" style="padding-top: 30px">
-        <div class="col-md-4">
+        <div class="col-md-6">
                 <div class="card mb-3">
-                        <h3 class="card-header">Jill Stratton</h3>
+                        <h3 class="card-header">Supriya Satpathy</h3>
                         <div class="card-body">
-                          <h5 class="card-title">Project Manager</h5>
-                          <h6 class="card-subtitle text-muted">                          <h6 class="card-subtitle text-muted">Project Vision/Full Stack Assistance/Implementation of Goals </h6></h6>
+                          <h5 class="card-title">Marketing Communications Director</h5>
+                          <h6 class="card-subtitle text-muted">                         
+                          <h6 class="card-subtitle text-muted">Project Vision/Communication/Full Stack developer
                         </div>
-                        <img class = "img-thumbnail" style="height: 100%; width: 100%; display: block;" src="../static/JStratton.jpg" width="75" height="200" alt="" title="" />
+                        <img class = "img-thumbnail" style="height: 50%; width: 50%; display: block;" src="../static/supriya.jpg" width="200" height="200" alt="" title="" />
                         <div class="card-body">
-                          <p class="card-text">"What I love about data is the stories it can tell." </p>
-						  <p> BA in English and Communications, I have been working with student data for the past 6 years.  Ignited by a map visualization project, my love for data lead me to a DataScience and Visualization BootCamp at Rutgers. I have a love for most things nerdy and can be found hanging out with my family.
+                            <p class="card-text">An excellent communicator, who takes care in articulating her thought process, as well as assessing the work of others.</p>
                         </div>
                         <div class="card-body">
-                          <a href="https://github.com/jmstratton" class="card-link">GitHub Portfolio link</a>
-                          <a href="https://www.linkedin.com/in/strattonjill/" class="card-link">LinkedIn link</a>
+                          <a href="https://github.com/supriya0115" class="card-link">GitHub Portfolio link</a>
+                          <a href="ZZZZZ supriya linked in" class="card-link">LinkedIn link</a>
                         </div>
 
                 </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
                 <div class="card mb-3">
                         <h3 class="card-header">Priya Venkataraman</h3>
                         <div class="card-body">
-                          <h5 class="card-title">Full Stack Developer</h5>
-                          <h6 class="card-subtitle text-muted">Developed and implemented concepts at multiple project levels</h6>
+                          <h5 class="card-title">Pricipal Design Engineer</h5>
+                          <h6 class="card-subtitle text-muted">UI/Code implementations at multiple project levels</h6>
                         </div>
-                        <img class = "img-thumbnail" style="height: 100%; width: 100%; display: block;" src="../static/PVenkataraman.jpg" width="569" height="569" alt="" title="" />
+                        <img class = "img-thumbnail" style="height: 50%; width: 50%; display: block;" src="../static/PVenkataraman.jpg" width="200" height="200" alt="" title="" />
                         <div class="card-body">
-                          <p class="card-text">Technology enthusiast, resourceful certified scrum master with 8+ years of business analysis, project management, risk assessment experience in diverse global IT Domains( Healthcare, Banking and Manufacturing). Evangelist of agile-scrum principles and methodology. Expert at driving the adoption and enforcement of Scrum rules, removing impediments, fostering self-management, to ensure business and project objectives are met. Proficient in Business Requirement Analysis, Business Process Improvement, Requirements gathering with documentation and Content Management in gathering data, analyzing and problem solving in a variety of environments. Facilitated sprint planning, daily scrums, retrospectives, stakeholder meetings, and software demonstrations (Agile ceremonies).</p>
+                          <p class="card-text">A curious coder, who highlights what didn't go so well, pushes boundaries and knows designing a great system needs hard work from extremely smart people from 
+                            many disciplines.
+                          </p>
                         </div>
                         <div class="card-body">
                           <a href="https://github.com/pvenk14" class="card-link">GitHub Portfolio link</a>
@@ -86,74 +82,56 @@
 
                 </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
                 <div class="card mb-3">
-                        <h3 class="card-header">Jonathan Groth</h3>
+                        <h3 class="card-header">Sivakumar Venkatachalam</h3>
                         <div class="card-body">
-                          <h5 class="card-title">Back End Developer</h5>
-                          <h6 class="card-subtitle text-muted">Data Architect/Back End Development/Responsible for Natural Language Processing</h6>
+                          <h5 class="card-title">Chief Technologist</h5>
+                          <h6 class="card-subtitle text-muted">Data Architect/Back End Development</h6>
                         </div>
-                        <img class = "img-thumbnail" style="height: 100%; width: 100%; display: block;" src="../static/JGroth.jpg" width="450" height="450" alt="" title="" />
+                        <img class = "img-thumbnail" style="height: 50%; width: 50%; display: block;" src="../static/siva.jpg" width="200" height="200" alt="" title="" />
                         <div class="card-body">
-                          <p class="card-text">I am a data scientist, with a scientist's rigor and curiosity, an engineer's problem solving and solution-oriented mind set, and educator's desire to impart a story. My training as both a scientist and as an engineer have given me unique insights into the process of understanding a problem and developing a solution. </p>
-						  <p>My expertise is in data analysis particularly in time series analysis, but I have expanded experience in an array of analysis techniques and domains. I am an experienced educator, in professional and academic settings, that has developed superb communication skills with the ability to explain complex ideas in an easy to understand way.</p>
-
+                            <p class="card-text">A technologist, who knows what you do doesn’t define you, an understanding of how it all fits all together needs deligence and hard-work.
+                            </p>
                         </div>
                         <div class="card-body">
-                          <a href="https://github.com/jgroth1" class="card-link">GitHub Portfolio link</a>
-                          <a href="https://www.linkedin.com/in/jonathan-groth-phd/" class="card-link">LinkedIn link</a>
+                          <a href="https://github.com/vsivakumar9" class="card-link">GitHub Portfolio link</a>
+                          <a href="ZZZZZ siva linkedin" class="card-link">LinkedIn link</a>
                         </div>
 
                 </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
                 <div class="card mb-3">
                         <h3 class="card-header">Meghana Raje</h3>
                         <div class="card-body">
-                          <h5 class="card-title">Back End Developer/Visualizations</h5>
-                          <h6 class="card-subtitle text-muted">Contributed to various Back End processes and created visualizations.</h6>
+                          <h5 class="card-title">Strategy Officer and Project Vision Implementation</h5>
+                          <h6 class="card-subtitle text-muted">Back End processes/Visualizations</h6>
                         </div>
-                        <img class = "img-thumbnail" style="height: 100%; width: 100%; display: block;" src="../static/MRaje.jpg" width="3024" height="3446" alt="" title="" />
+                        <img class = "img-thumbnail" style="height: 50%; width: 50%; display: block;" src="../static/Meghanavmr.jpg" width="200" height="200" alt="" title="" />
                         <div class="card-body">
-                          <p class="card-text">Spanning a decade in Pharma industry, I come with diverse experience
-                          in Pharma Business and IT processes. I enable alignment of functional processes, data, integrations and reporting
-                          with a Quality perspective.</p>
-                          
-                          <p>Efficiency and learning new skills is what I enjoy pursuing! When I lead my approach is 
-                          to enable my growth and ensure everyone 
-                          around me grows with me and that why I am a team player. I am focused on meeting deadlines, thereby, optimizing time and resources.</p>
-
-						  On any given day, I am competing with my 13 year old daughter (she is a Girlsmakeapps.org member) to get better in Python!</p>
+                          <p class="card-text">She knows well, great teams are better than all-star players, no matter how great someone's idea, it can be improved 
+                             upon, through collaboration.</p>
                         </div>
                         <div class="card-body">
                           <a href="https://github.com/Meghanavmr" class="card-link">GitHub Portfolio link</a>
+                          <a href="ZZZZZ Meghana linked in" class="card-link">LinkedIn link</a>
                         </div>
 
                 </div>
         </div>
-        <div class="col-md-4">
-            <div class="card mb-3">
-                    <h3 class="card-header">Ira Petric-Buchberger</h3>
-                    <div class="card-body">
-                      <h5 class="card-title">Front End Developer</h5>
-                      <h6 class="card-subtitle text-muted">Responsible for developing client-facing websites.</h6>
-                    </div>
-                    <img class = "img-thumbnail" style="height: 100%; width: 100%; display: block;" src="../static/IPetric-Buchberger.jpg" width="337" height="337" alt="" title="" />
-                    <div class="card-body">
-                      <p class="card-text">My purpose is making order out of chaos, with a mantra 'How can I make this more efficient?'. Whether it was reducing laboratory testing time, streamlining database architecture, or optimizing morning routine for special needs preschoolers, I relied on collecting, measuring and analyzing data. </p>
-                      <p>  I thrive when I'm learning something new, and that pursuit of new knowledge led me to this Data Science bootcamp. When I am not designing websites for class project, I enjoy spending time with my family, reading and contemplating on the meaning of life.</p>
-                    </div>
-                    <div class="card-body">
-                      <a href="https://github.com/ipetricb" class="card-link">GitHub Portfolio link</a>
-                      <a href="https://www.linkedin.com/in/irapetricbuchberger/" class="card-link">LinkedIn link</a>
-                    </div>
 
+
+              
             </div>
     </div>
     </div>
     <div>
+      <!-- <footer class="footer" style="padding-top: 30px">
+        <span class="bottom">The information presented here was created for educational purposes only © Copyright Datafit-Owners for Bootcamp 2018.</span>
+      </footer> -->
       <footer class="footer" style="padding-top: 30px">
-        <span class="bottom">The information presented here was created for educational purposes only.</span>
+        <p>© Copyright owners Datafit for Bootcamp 2018. The information presented here was created for educational purposes only </p>
       </footer>
     </div>
   </body>
