@@ -5,6 +5,7 @@
 
 html,
 body {
+  color: whitesmoke;
   height: 100%;
   padding: 0;
   margin: 0;
@@ -17,6 +18,17 @@ body {
   padding-bottom: 130px;
   overflow: auto;
 }
+
+
+/* Header/Logo Title */
+.header {
+  padding: 60px;
+  text-align: center;
+  background: rgb(108, 188, 194);
+  color: white;
+  font-size: 30px;
+}
+
 
 /* The footer is positioned at the bottom of the page */
 .footer {
@@ -39,7 +51,7 @@ body {
 }
 
 .navbar {
-  padding: 5px;
+  padding: 30px;
   margin: 0;
 }
 
@@ -63,6 +75,13 @@ body {
 
 .filters {
   margin-top: 10px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 select {

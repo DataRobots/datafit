@@ -1,2 +1,2 @@
-FLASK_APP=Biodiversity/app_bbutton.py flask run
+FLASK_APP=Datafit/app.py flask run
 
